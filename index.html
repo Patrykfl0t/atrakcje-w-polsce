@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atrakcje w Polsce</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            background-color: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #003366;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .form-group {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .radiobox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: gray;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        #wyniki p {
+            background: #f9f9f9;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Atrakcje</h1>
+
+        <div class="form-group">
+            <label for="wojewodztwo">Wybierz województwo:</label>
+            <select id="wojewodztwo" name="wojewodztwo">
+                <option value="">-- Wybierz --</option>
+                <option value="DolnoŚlaskie">Dolnośląskie</option>
+                <option value="Kujawsko-Pomorskie">Kujawsko-Pomorskie</option>
+                <option value="Lubelskie">Lubelskie</option>
+                <option value="Lubuskie">Lubuskie</option>
+                <option value="Łodzkie">Łódzkie</option>
+                <option value="Malopolskie">Małopolskie</option>
+                <option value="Mazowieckie">Mazowieckie</option>
+                <option value="Opolskie">Opolskie</option>
+                <option value="Podkarpackie">Podkarpackie</option>
+                <option value="Podlaskie">Podlaskie</option>
+                <option value="Pomorskie">Pomorskie</option>
+                <option value="Ślaskie">Śląskie</option>
+                <option value="Świetokrzyskie">Świętokrzyskie</option>
+                <option value="Warminsko-Mazurskie">Warmińsko-Mazurskie</option>
+                <option value="Wielkopolskie">Wielkopolskie</option>
+                <option value="Zachodniopomorskie">Zachodniopomorskie</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="region_miejscowosc">Podaj region lub miejscowość:</label>
+            <input type="text" id="region_miejscowosc" name="region_miejscowosc" placeholder="np. Kraków, Mazury">
+        </div>
+
+        <div class="form-group">
+            <label>Wybierz typ atrakcji:</label>
+            <div class="radiobox-group">
+                <label><input type="radio" name="typ_atrakcji" value="turystyczna"> Turystyczna</label>
+                <label><input type="radio" name="typ_atrakcji" value="historyczna"> Historyczna</label>
+                <label><input type="radio" name="typ_atrakcji" value="krajoznawcza"> Krajoznawcza</label>
+                <label><input type="radio" name="typ_atrakcji" value="rekreacyjna"> Rekreacyjna</label>
+                <label><input type="radio" name="typ_atrakcji" value="inna"> Inna</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="opis">Podaj krótki opis atrakcji:</label>
+            <input type="text" id="opis" name="opis" placeholder="np. Piękne widoki, zabytki...">
+        </div>
+
+        <button id="dodajBtn">Dodaj</button>
+
+        <hr>
+
+        <div id="wyniki"></div>
+
+        <script>
+            const btn = document.getElementById('dodajBtn');
+            const wyniki = document.getElementById('wyniki');
+            let i = 1;
+
+            btn.addEventListener('click', function () {
+                const woj = document.getElementById('wojewodztwo').value;
+                const region = document.getElementById('region_miejscowosc').value;
+                const typ = document.querySelector('input[name="typ_atrakcji"]:checked');
+                const opis = document.getElementById('opis').value;
+
+                if (!woj || !region || !typ || !opis) {
+                    alert("Uzupełnij wszystkie pola!");
+                    return;
+                }
+
+                const par = document.createElement('p');
+                par.innerText = `Atrakcja ${i}: Województwo: ${woj}, Region/Miejscowość: ${region}, Typ: ${typ.value}, Opis: ${opis}`;
+                
+                par.addEventListener('click', function(){
+                    this.remove();
+                });
+
+                wyniki.append(par);
+                i++;
+            });
+        </script>
+    </div>
+
+    <div class="footer">
+        © Me XXI c.
+    </div>
+</body>
+</html>
